@@ -22,7 +22,7 @@ public class MappingController {
         return "ok";
     }
 
-    @GetMapping("/mapping-get-v1")
+    @GetMapping("/mapping-get-v2")
     public String mappingGetV2() {
         log.info("mapping-get-v2");
         return "ok";
@@ -46,7 +46,7 @@ public class MappingController {
      */
     @GetMapping("/mapping/users/{userId}/orders/{orderId}")
     public String mappingPath(@PathVariable String userId, @PathVariable Long orderId) {
-        log.info("mappingPath userId = {}. orderId = }", userId, orderId);
+        log.info("mappingPath userId = {}. orderId = {}", userId, orderId);
         return "ok";
     }
 
