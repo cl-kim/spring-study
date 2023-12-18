@@ -43,6 +43,8 @@ public class ValidationItemControllerV3 {
 
     @PostMapping("/add")
     public String addItem(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        checkTotalAmount(item, bindingResult);
+
         // 검증에 실패하면 다시 입력 폼으로
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
@@ -54,6 +56,16 @@ public class ValidationItemControllerV3 {
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
         return "redirect:/validation/v3/items/{itemId}";
+    }
+
+    private void checkTotalAmount(Item item, BindingResult bindingResult) {
+        // 특정 필드가 아닌 복합 룰 검증은 자바 코드로 하는 것을 권장한다.
+        if (item.getPrice() != null && item.getQuantity() != null) {
+            int resultPrice = item.getPrice() * item.getQuantity();
+            if (resultPrice < 10000) {
+                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
+            }
+        }
     }
 
     @GetMapping("/{itemId}/edit")
