@@ -12,7 +12,9 @@ public class Item {
 
     private Long id;
 
-    @NotBlank
+    // MessageCodesResolver를 통해 다양한 코드가 순서대로 생성된다.
+    // ex) NotBlank.item.itemName NotBlank.itemName NotBlank.java.lang.String NotBlank
+    @NotBlank(message = "공백은 입력할 수 없습니다.")
     private String itemName;
 
     @NotNull
