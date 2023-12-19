@@ -8,23 +8,16 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-//@ScriptAssert(lang = "javascript", script = "_this.price * _this.quantity >= 10000", message = "총 합은 10000원을 넘어야합니다.")
 public class Item {
 
-    @NotNull(groups = UpdateCheck.class)
     private Long id;
 
     // MessageCodesResolver를 통해 다양한 코드가 순서대로 생성된다.
     // ex) NotBlank.item.itemName NotBlank.itemName NotBlank.java.lang.String NotBlank
-    @NotBlank(groups = {SaveCheck.class, UpdateCheck.class})
     private String itemName;
 
-    @NotNull(groups = {SaveCheck.class, UpdateCheck.class})
-    @Range(min = 1000, max = 1000000, groups = {SaveCheck.class, UpdateCheck.class})
     private Integer price;
 
-    @NotNull(groups = {SaveCheck.class, UpdateCheck.class})
-    @Max(value = 9999, groups = SaveCheck.class)
     private Integer quantity;
 
     public Item() {
