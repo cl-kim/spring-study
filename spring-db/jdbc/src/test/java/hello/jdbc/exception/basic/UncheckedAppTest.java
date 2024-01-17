@@ -16,6 +16,16 @@ public class UncheckedAppTest {
                 .isInstanceOf(Exception.class);
     }
 
+    @Test
+    void printEx() {
+        Controller controller = new Controller();
+        try {
+            controller.request();
+        } catch (Exception e) {
+            log.info("ex", e);
+        }
+    }
+
     static class Controller {
         Service service = new Service();
 
@@ -50,12 +60,26 @@ public class UncheckedAppTest {
             }
         }
 
+        // 이러면 안된다!
+        // 예외를 전환할 때는 기존 예외를 꼭 포함해야한다.
+        public void callV2() {
+            try {
+                runSQL();
+            } catch (SQLException e) {
+                throw new RuntimeSqlException();
+            }
+        }
+
         public void runSQL() throws SQLException {
             throw new SQLException("ex");
         }
     }
 
     static class RuntimeSqlException extends RuntimeException {
+
+        public RuntimeSqlException() {
+        }
+
         public RuntimeSqlException(Throwable cause) {
             super(cause);
         }
