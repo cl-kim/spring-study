@@ -60,7 +60,7 @@ public class JdbcTemplateRepositoryV2 implements ItemRepository {
                 .addValue("itemName", updateParam.getItemName())
                 .addValue("price", updateParam.getPrice())
                 .addValue("quantity", updateParam.getQuantity())
-                .addValue("id", itemId);
+                .addValue("id", itemId); // BeanProperty 를 사용하고 싶어도 이 부분이 별도로 필요하다.
 
         template.update(sql, param);
     }
