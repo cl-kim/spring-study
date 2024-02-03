@@ -31,7 +31,7 @@ public class ItemServiceApplication {
 		return new TestDataInit(itemRepository);
 	}
 
-	@Bean
+/*	@Bean
 	@Profile("test")
 	public DataSource dataSource() {
 		log.info("메모리 데이터 베이스 초기화");
@@ -40,5 +40,5 @@ public class ItemServiceApplication {
 		dataSource.setUrl("jdbc:h2:mem:db;DB_CLOSE_DELAY=-1");
 		dataSource.setUsername("sa");
 		return dataSource;
-	}
+	}*/
 }
